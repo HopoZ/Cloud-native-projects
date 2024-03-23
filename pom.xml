@@ -18,9 +18,7 @@ http://maven.apache.org/maven-v4_0_0.xsd">
     <description>简单的微服务案例</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-
-            8
-        </project.reporting.outputEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <springboot.version>2.0.9.RELEASE</springboot.version>
         <springcloud.version>Finchley.SR2</springcloud.version>

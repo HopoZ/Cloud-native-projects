@@ -1,0 +1,21 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: eureka-server
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    prefer-ip-address: true
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 4000
+    wait-time-in-ms-when-sync-empty: 0
+    responseCacheUpdateIntervalMs: 1
+    use-read-only-response-cache: false
+    renewal-percent-threshold: 0.49
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
