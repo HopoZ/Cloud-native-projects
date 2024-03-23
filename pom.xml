@@ -9,6 +9,9 @@ http://maven.apache.org/maven-v4_0_0.xsd">
     <version>1.0.0</version>
     <!--新增包含的子项目-->
     <modules>
+        <module>
+            eureka-service
+        </module>
     </modules>
     <name>microservice-demo</name>
     <packaging>pom</packaging>
