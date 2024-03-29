@@ -9,9 +9,8 @@ http://maven.apache.org/maven-v4_0_0.xsd">
     <version>1.0.0</version>
     <!--新增包含的子项目-->
     <modules>
-        <module>
-            eureka-service
-        </module>
+        <module>eureka-service</module>
+        <module>product-service</module>
     </modules>
     <name>microservice-demo</name>
     <packaging>pom</packaging>
@@ -100,15 +99,14 @@ http://maven.apache.org/maven-v4_0_0.xsd">
                     </exclusion>
                 </exclusions>
             </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.23</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <!--        优雅的数据库访问方法-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.4.3</version>
-        </dependency>
         <!--eureka 客户端 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
