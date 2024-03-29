@@ -1,0 +1,20 @@
+server:
+  port: 8010  # 服务器端口配置
+
+spring:
+  application:
+    name: product-service  # Spring 应用程序名称
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/tb_product?characterEncoding=utf-8&useSSL=false  # 数据库连接 URL
+    username: root  # 数据库用户名
+    password: root  # 数据库密码
+    driver-class-name: com.mysql.jdbc.Driver  # 数据库驱动类名
+
+eureka:
+  instance:
+    prefer-ip-address: false  # Eureka 实例是否优先使用 IP 地址，默认为 false
+  client:
+    register-with-eureka: true  # 是否将当前应用注册到 Eureka 服务器，默认为 true
+    fetch-registry: true  # 是否从 Eureka 服务器获取注册信息，默认为 true
+    service-url:
+      defaultZone: http://localhost:8888/eureka  # Eureka 服务器的地址，用于服务注册与发现
