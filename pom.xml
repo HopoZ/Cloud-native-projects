@@ -11,6 +11,7 @@ http://maven.apache.org/maven-v4_0_0.xsd">
     <modules>
         <module>eureka-service</module>
         <module>product-service</module>
+        <module>product-client</module>
     </modules>
     <name>microservice-demo</name>
     <packaging>pom</packaging>

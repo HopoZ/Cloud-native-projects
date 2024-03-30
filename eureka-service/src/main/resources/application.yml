@@ -1,21 +1,24 @@
-server:
-  port: 8888
-spring:
-  application:
-    name: eureka-server
-eureka:
-  instance:
-    hostname: 127.0.0.1
-    prefer-ip-address: true
-  server:
-    enable-self-preservation: false
-    eviction-interval-timer-in-ms: 4000
-    wait-time-in-ms-when-sync-empty: 0
-    responseCacheUpdateIntervalMs: 1
-    use-read-only-response-cache: false
-    renewal-percent-threshold: 0.49
-  client:
-    register-with-eureka: true
-    fetch-registry: false
-    serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+server:  # 服务器配置
+  port: 8888  # 服务器运行的端口号
+
+spring:  # Spring框架配置
+  application:  # 应用程序相关配置
+    name: eureka-server  # 应用程序名称
+
+eureka:  # Eureka配置
+  instance:  # Eureka实例配置
+    hostname: 127.0.0.1  # Eureka实例的主机名
+    prefer-ip-address: true  # 指示是否优先使用IP地址进行通信
+  server:  # Eureka服务器配置
+    enable-self-preservation: false  # 是否启用自我保护模式
+    eviction-interval-timer-in-ms: 4000  # 实例清除间隔时间（毫秒）
+    wait-time-in-ms-when-sync-empty: 0  # 同步为空时的等待时间（毫秒）
+    responseCacheUpdateIntervalMs: 1  # 更新响应缓存的间隔时间（毫秒）
+    use-read-only-response-cache: false  # 是否使用只读响应缓存
+    renewal-percent-threshold: 0.49  # 实例更新的阈值百分比
+
+  client:  # Eureka客户端配置
+    register-with-eureka: true  # 是否向Eureka服务器注册
+    fetch-registry: false  # 是否从服务器获取注册表信息
+    serviceUrl:  # Eureka服务器的URL
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/  # Eureka服务器的默认URL

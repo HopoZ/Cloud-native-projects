@@ -2,7 +2,7 @@ package org.software.productservice.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.software.productservice.mapper.ProductMapper;
-import org.software.productservice.po.Product;
+import org.software.productservice.model.Product;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;

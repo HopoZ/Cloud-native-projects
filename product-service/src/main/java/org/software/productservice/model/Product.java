@@ -1,4 +1,4 @@
-package org.software.productservice.po;
+package org.software.productservice.model;
 
 import lombok.Data;
 

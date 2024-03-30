@@ -1,0 +1,21 @@
+server:
+  port: 8018  # 服务器端口配置
+
+spring:
+  application:
+    name: product-client  # Spring 应用程序名称
+
+ribbon:
+  eureka:
+    enable: true  # 启用 Ribbon 与 Eureka 的集成
+
+eureka:
+  instance:
+    prefer-ip-address: false  # 是否优先使用 IP 地址，默认为 false
+  client:
+    register-with-eureka: true  # 是否将当前应用注册到 Eureka 服务器，默认为 true
+    fetch-registry: true  # 是否从 Eureka 服务器获取注册信息，默认为 true
+    initial-instance-info-replication-interval-seconds: 10  # 初始实例信息复制间隔时间（以秒为单位）
+    registry-fetch-interval-seconds: 5  # 注册表获取间隔时间（以秒为单位）
+    service-url:
+      defaultZone: http://localhost:8888/eureka  # Eureka 服务器的地址，用于服务注册与发现
