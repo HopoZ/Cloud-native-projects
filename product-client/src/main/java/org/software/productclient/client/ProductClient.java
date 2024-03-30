@@ -11,7 +11,7 @@ public class ProductClient {
     /**
      * 商品服务远程调用客户端
      */
-    @FeignClient(name="product-service")
+    @FeignClient(name="product-service",fallback = ProductServiceFallback.class)
     public interface ProductServiceClient {
         /**
          * 根据商品 id 获取商品对象
