@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <title>个人信息</title>
+    <link rel="stylesheet" href="../../css/element.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+        .avatar-uploader .el-upload {
+            border: 1px dashed #d9d9d9;
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .avatar-uploader-icon {
+            font-size: 28px;
+            color: #8c939d;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            display: block;
+        }
+    </style>
+
+</head>
+<body style="background-color: #ddd">
+<div id="wrapper" v-cloak>
+
+    <el-card style="width: 40%;">
+        <div slot="header" class="clearfix" style="display: flex">
+            <div style="font-size: 24px; flex: 1">个人信息</div>
+            <div style="flex: 1; text-align: right">
+                <el-button size="small" type="primary" @click="edit">编辑</el-button>
+            </div>
+        </div>
+        <div>
+            <div style="padding: 10px 0; text-align: center">
+                <el-upload
+                        class="avatar-uploader"
+                        action="/files/upload"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess">
+                    <img v-if="user.avatar" :src="['/files/' + user.avatar]" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+            </div>
+            <div style="width: 300px; margin: 0 auto">
+                <el-form>
+                    <el-form-item label="用户名：" label-width="120px" style="margin: 0">
+                        <div>{{ user.username }}</div>
+                    </el-form-item>
+                    <el-form-item label="昵称：" label-width="120px" style="margin: 0">
+                        <div>{{ user.nickName }}</div>
+                    </el-form-item>
+                    <el-form-item label="邮箱：" label-width="120px" style="margin: 0">
+                        <div>{{ user.email }}</div>
+                    </el-form-item>
+                    <el-form-item label="电话：" label-width="120px" style="margin: 0">
+                        <div>{{ user.phone }}</div>
+                    </el-form-item>
+                    <el-form-item label="年龄：" label-width="120px" style="margin: 0">
+                        <div>{{ user.age }}</div>
+                    </el-form-item>
+                    <el-form-item label="地址：" label-width="120px"  style="margin: 0">
+                        <div>{{ user.address }}</div>
+                    </el-form-item>
+                </el-form>
+            </div>
+
+
+        </div>
+    </el-card>
+
+    <el-dialog title="用户信息" :visible.sync="dialogFormVisible" width="40%"
+               close-on-click-modal="false" close-on-press-escape="false" show-close="false">
+        <el-form :model="user">
+            <el-form-item label="昵称" label-width="100px">
+                <el-input v-model="entity.nickName" autocomplete="off" style="width: 80%"></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱" label-width="100px">
+                <el-input v-model="entity.email" autocomplete="off" style="width: 80%"></el-input>
+            </el-form-item>
+            <el-form-item label="电话" label-width="100px">
+                <el-input v-model="entity.phone" autocomplete="off" style="width: 80%"></el-input>
+            </el-form-item>
+            <el-form-item label="年龄" label-width="100px">
+                <el-input v-model="entity.age" autocomplete="off" style="width: 80%"></el-input>
+            </el-form-item>
+            <el-form-item label="地址" label-width="100px">
+                <el-input v-model="entity.address" autocomplete="off" style="width: 80%"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" label-width="100px">
+                <el-input show-password v-model="user.password" autocomplete="off" style="width: 80%"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="save">确 定</el-button>
+        </div>
+    </el-dialog>
+
+
+
+</div>
+
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/element.js"></script>
+
+<script>
+    new Vue({
+        el: "#wrapper",
+        data: {
+            user: {},
+            isCollapse: false,
+            entity: {},
+            dialogFormVisible: false
+        },
+        created() {
+            this.user = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : {};
+            this.load();
+        },
+        methods: {
+            handleAvatarSuccess(res) {
+                this.entity = JSON.parse(JSON.stringify(this.user))
+                this.entity.avatar = res.data
+                this.save()
+            },
+            logout() {
+                $.get("/api/user/logout");
+                sessionStorage.removeItem("user");
+                location.href = "/page/end/login.html";
+            },
+            handleCollapse() {
+                this.isCollapse = !this.isCollapse;
+            },
+            edit() {
+                this.entity = JSON.parse(JSON.stringify(this.user))
+                this.dialogFormVisible = true;
+            },
+            load() {
+                $.get("/api/user/detail/" + this.user.username).then(res => {
+                    this.user = res.data;
+                })
+            },
+            save() {
+                $.ajax({
+                    url: "/api/user",
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(this.entity)
+                }).then(res => {
+                    if (res.code === '0') {
+                        this.$message({
+                            message: "保存成功",
+                            type: "success"
+                        });
+                        this.load();
+                    } else {
+                        this.$message({
+                            message: res.msg,
+                            type: "error"
+                        })
+                    }
+                    this.dialogFormVisible = false;
+                })
+            },
+        }
+    })
+</script>
+</body>
+</html>

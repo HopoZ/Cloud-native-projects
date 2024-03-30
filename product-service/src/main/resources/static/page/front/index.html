@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="../../css/element.css">
+    <link rel="stylesheet" href="../../css/base.css">
+
+    <style>
+
+    </style>
+</head>
+<body class="frame-body">
+<div id="wrapper" v-cloak>
+    <el-row style="margin-bottom: 50px">
+        <el-col :span="14" :offset="5">
+
+            <div style="margin: 10px 0">
+                <div style="margin: 10px 0">
+                    <el-carousel height="400px">
+                        <el-carousel-item v-for="item in imgList" :key="item">
+                            <img style="width: 100%" :src='item' alt="">
+                        </el-carousel-item>
+                    </el-carousel>
+                </div>
+
+
+                <div style="margin: 10px 0">
+                    <el-card>
+                        <div style="border-bottom: 1px solid orangered; padding: 10px 0; font-size: 20px">活动列表</div>
+                        <div style="margin: 10px 0">
+
+
+                        </div>
+
+                    </el-card>
+                </div>
+            </div>
+
+        </el-col>
+    </el-row>
+
+
+
+</div>
+
+<!--    js-->
+<script src="../../js/jquery.min.js"></script>
+
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/element.js"></script>
+
+<script>
+    new Vue({
+        el: "#wrapper",
+        data: {
+            src: 'message.html',
+            search: '',
+            tableData: [],
+            pageNum: 1,
+            pageSize: 10,
+            total: 0,
+            user: {},
+            imgList: [
+                'https://img.zcool.cn/community/01e1605ef84d6ca80120662165f99a.png@1280w_1l_2o_100sh.png',
+                'https://img.zcool.cn/community/014f335ef84d6ba801215aa0e5572e.png@1280w_1l_2o_100sh.png',
+                'https://img.zcool.cn/community/014c235ef84d6ca801215aa030eb99.png@1280w_1l_2o_100sh.png'
+            ]
+        },
+        created() {
+            $.ajax({url: '/api/user/session', method: "GET", async: false, success: (res) => {this.user = res.data || {}}})
+            this.loadTable()
+        },
+        methods: {
+            sign(obj) {
+
+            },
+            logout() {
+                $.get("/api/user/logout");
+                sessionStorage.removeItem("user");
+                location.href = "/page/end/login.html";
+            },
+            loadTable() {
+                // $.get("/api/activity/page?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize + "&name=" + this.search).then(res => {
+                //     this.tableData = res.data.records;
+                //     this.total = res.data.total;
+                // })
+            },
+            handleSizeChange(pageSize) {
+                this.pageSize = pageSize;
+                this.loadTable();
+            },
+            handleCurrentChange(pageNum) {
+                this.pageNum = pageNum;
+                this.loadTable();
+            },
+        }
+    })
+</script>
+</body>
+</html>

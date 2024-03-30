@@ -5,9 +5,9 @@ spring:
   application:
     name: product-service  # Spring 应用程序名称
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/tb_product?characterEncoding=utf-8&useSSL=false  # 数据库连接 URL
-    username: HITmanager  # 数据库用户名
-    password: HITmanager  # 数据库密码
+    url: jdbc:mysql://127.0.0.1:3306/system?characterEncoding=utf-8&useSSL=false  # 数据库连接 URL
+    username: root # 数据库用户名
+    password: Hhb123456@  # 数据库密码
     driver-class-name: com.mysql.cj.jdbc.Driver  # 数据库驱动类名
     hikari:
       maximum-pool-size: 10  # 最大连接池大小
