@@ -1,4 +1,4 @@
-package org.software.productservice.entity;
+package org.software.productclient.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -8,8 +8,8 @@ import lombok.Data;
 
 
 @Data
-@TableName("t_log")
-public class Log extends Model<Log> {
+@TableName("t_orders1")
+public class OrdersSearch extends Model<OrdersSearch> {
     /**
       * 主键
       */
@@ -17,20 +17,8 @@ public class Log extends Model<Log> {
     private Long id;
 
     /**
-      * 操作内容
+      * 订单名称 
       */
-    private String content;
-
-    /**
-      * 操作时间
-      */
-    private String time;
-
-    /**
-      * 操作人
-      */
-    private String user;
-
-    private String ip;
+    private String name;
 
 }

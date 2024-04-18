@@ -9,6 +9,8 @@ import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.software.productservice.common.Result;
 import org.software.productservice.entity.Goods;
 import org.software.productservice.entity.User;
@@ -27,6 +29,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+@AllArgsConstructor // 使用 Lombok 自动生成带有所有参数的构造函数
+@Slf4j // 使用 Lombok 自动生成日志记录器
 @RestController
 @RequestMapping("/api/goods")
 public class GoodsController {

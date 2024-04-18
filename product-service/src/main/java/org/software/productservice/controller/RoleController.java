@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.software.productservice.common.Result;
 import org.software.productservice.entity.Role;
-import org.software.productservice.service.LogService;
 import org.software.productservice.service.RoleService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,25 +17,21 @@ import java.util.List;
 public class RoleController {
     @Resource
     private RoleService roleService;
-    @Resource
-    private LogService logService;
+
 
     @PostMapping
     public Result<?> save(@RequestBody Role role) {
-        logService.log(StrUtil.format("新增角色：{}", role.getName()));
         return Result.success(roleService.save(role));
     }
 
     @PutMapping
     public Result<?> update(@RequestBody Role role) {
-        logService.log(StrUtil.format("更新角色：{}", role.getName()));
         return Result.success(roleService.updateById(role));
     }
 
     @DeleteMapping("/{id}")
     public Result<?> delete(@PathVariable Long id) {
         Role role = roleService.getById(id);
-        logService.log(StrUtil.format("删除角色：{}", role.getName()));
 
         roleService.removeById(id);
         return Result.success();
