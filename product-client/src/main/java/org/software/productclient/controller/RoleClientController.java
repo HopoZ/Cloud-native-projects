@@ -6,9 +6,10 @@ import org.software.productclient.client.ProductClient;
 import org.software.productclient.entity.OrdersSearch;
 import org.software.productclient.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
-import org.xnio.Result;
-
+import org.software.productclient.common.Result;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -17,7 +18,7 @@ import java.io.IOException;
 @Slf4j // 使用 Lombok 自动生成日志记录器
 @RequestMapping("/api/role")
 public class RoleClientController {
-    @Autowired
+    @Resource
     private final ProductClient.RoleServiceClient roleServiceClient;
 
     @PostMapping

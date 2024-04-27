@@ -5,15 +5,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.software.productclient.client.ProductClient;
 import org.software.productclient.entity.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
-import org.xnio.Result;
+import org.software.productclient.common.Result;
+
+import javax.annotation.Resource;
 
 @AllArgsConstructor // 使用 Lombok 自动生成带有所有参数的构造函数
 @RestController // 标识该类是一个 REST 控制器
 @Slf4j // 使用 Lombok 自动生成日志记录器
 @RequestMapping("/api/permission")
 public class PermissionClientController {
-    @Autowired
+    @Resource
     private final ProductClient.PermissionServiceClient permissionServiceClient;
 
     @PostMapping

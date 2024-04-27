@@ -7,6 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AllArgsConstructor;
@@ -48,35 +49,35 @@ public class GoodsController {
     }
 
     @PostMapping
-    public Result<?> save(@RequestBody Goods goods) {
+    public Result<Boolean> save(@RequestBody Goods goods) {
         return Result.success(goodsService.save(goods));
     }
 
     @PutMapping
-    public Result<?> update(@RequestBody Goods goods) {
+    public Result<Boolean> update(@RequestBody Goods goods) {
         return Result.success(goodsService.updateById(goods));
     }
 
     @DeleteMapping("/{id}")
-    public Result<?> delete(@PathVariable Long id) {
+    public Result delete(@PathVariable Long id) {
         goodsService.removeById(id);
         return Result.success();
     }
 
     @GetMapping("/{id}")
-    public Result<?> findById(@PathVariable Long id) {
+    public Result<Goods> findById(@PathVariable Long id) {
         return Result.success(goodsService.getById(id));
     }
 
     @GetMapping
-    public Result<?> findAll() {
+    public Result<List<Goods>> findAll() {
         return Result.success(goodsService.list());
     }
 
     @GetMapping("/page")
-    public Result<?> findPage(@RequestParam(required = false, defaultValue = "") String name,
-                                                @RequestParam(required = false, defaultValue = "1") Integer pageNum,
-                                                @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+    public Result<IPage<Goods>> findPage(@RequestParam(required = false, defaultValue = "") String name,
+                                  @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                  @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         LambdaQueryWrapper<Goods> query = Wrappers.<Goods>lambdaQuery().orderByDesc(Goods::getId);
         if (StrUtil.isNotBlank(name)) {
             query.like(Goods::getName, name);
@@ -116,7 +117,7 @@ public class GoodsController {
     }
 
     @GetMapping("/upload/{fileId}")
-    public Result<?> upload(@PathVariable String fileId) {
+    public Result upload(@PathVariable String fileId) {
         String basePath = System.getProperty("user.dir") + "/src/main/resources/static/file/";
         List<String> fileNames = FileUtil.listFileNames(basePath);
         String file = fileNames.stream().filter(name -> name.contains(fileId)).findAny().orElse("");

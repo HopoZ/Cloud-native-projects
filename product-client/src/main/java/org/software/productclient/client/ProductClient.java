@@ -2,9 +2,10 @@ package org.software.productclient.client;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.software.productclient.entity.*;
+import org.software.productclient.fallBack.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
-import org.xnio.Result;
+import org.software.productclient.common.Result;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -13,7 +14,7 @@ public class ProductClient {
     /**
      * 商品服务远程调用客户端
      */
-    @FeignClient(name = "product-service",path ="/api/goods" )
+    @FeignClient(name = "product-service",path ="/api/goods",fallback = GoodsServiceClientFallback.class)
     public interface GoodsServiceClient {
 //        /**
 //         * 根据商品 id 获取商品对象
@@ -31,21 +32,21 @@ public class ProductClient {
 //        @GetMapping("queryAllt")
 //        List<Product> queryAl();
         @PostMapping
-         Result<?> save(@RequestBody Goods goods);
+        Result<Boolean> save(@RequestBody Goods goods);
 
         @PutMapping
-         Result<?> update(@RequestBody Goods goods);
+         Result<Boolean> update(@RequestBody Goods goods);
 
         @DeleteMapping("/{id}")
-         Result<?> delete(@PathVariable("id") Long id);
+         Result delete(@PathVariable("id") Long id);
 
         @GetMapping("/{id}")
-         Result<?> findById(@PathVariable("id") Long id);
+         Result<Goods> findById(@PathVariable("id") Long id);
 
         @GetMapping
-         Result<?> findAll();
+         Result<List<Goods>> findAll();
         @GetMapping("/page")
-         Result<?> findPage(@RequestParam(name = "name",required = false, defaultValue = "") String name,
+         Result<IPage<Goods>> findPage(@RequestParam(name = "name",required = false, defaultValue = "") String name,
                 @RequestParam(name = "pageNum",required = false, defaultValue = "1") Integer pageNum,
                 @RequestParam(name = "pageSize",required = false, defaultValue = "10") Integer pageSize);
 
@@ -53,10 +54,10 @@ public class ProductClient {
          void export(HttpServletResponse response) throws IOException;
 
         @GetMapping("/upload/{fileId}")
-         Result<?> upload(@PathVariable("fileId") String fileId);
+         Result upload(@PathVariable("fileId") String fileId);
     }
 
-    @FeignClient(name = "product-service",path = "/api/ordersSearch")
+    @FeignClient(name = "product-service",path = "/api/ordersSearch",fallback = OrdersSearchServiceClientFallback.class)
     public interface OrdersSearchServiceClient {
         @PostMapping
          Result<?> save(@RequestBody OrdersSearch ordersSearch);
@@ -84,7 +85,7 @@ public class ProductClient {
          Result<?> upload(@PathVariable("fileId") String fileId);
     }
 
-    @FeignClient(name = "product-service",path = "/api/orders")
+    @FeignClient(name = "product-service",path = "/api/orders",fallback = OrdersServiceClientFallback.class)
     public interface OrdersServiceClient {
         @PostMapping
          Result<?> save(@RequestBody Orders order);
@@ -113,7 +114,7 @@ public class ProductClient {
 
     }
 
-    @FeignClient(name = "product-service",path = "/api/permission")
+    @FeignClient(name = "product-service",path = "/api/permission",fallback = PermissionServiceClientFallback.class)
     public interface PermissionServiceClient {
         @PostMapping
         Result<?> save(@RequestBody Permission permission);
@@ -139,7 +140,7 @@ public class ProductClient {
         Result<List<Permission>> getByRoles(@RequestBody List<Role> roles);
     }
 
-    @FeignClient(name = "product-service",path ="/api/role" )
+    @FeignClient(name = "product-service",path ="/api/role",fallback = RoleServiceClientFallback.class)
     public interface RoleServiceClient {
         @PostMapping
          Result<?> save(@RequestBody Role role);
@@ -162,7 +163,7 @@ public class ProductClient {
 
     }
 
-    @FeignClient(name = "product-service",path = "/api/supplierInfo")
+    @FeignClient(name = "product-service",path = "/api/supplierInfo",fallback = SupplierInfoServiceClientFallback.class)
     public interface SupplierInfoServiceClient {
         @PostMapping
          Result<?> save(@RequestBody SupplierInfo supplierInfo);
@@ -190,7 +191,7 @@ public class ProductClient {
          Result<?> upload(@PathVariable("fileId") String fileId);
     }
 
-    @FeignClient(name = "product-service",path = "/api/supplier")
+    @FeignClient(name = "product-service",path = "/api/supplier",fallback = SupplierServiceClientFallback.class)
     public interface SupplierServiceClient {
         @PostMapping
          Result<?> save(@RequestBody Supplier supplier);
@@ -218,7 +219,7 @@ public class ProductClient {
          Result<?> upload(@PathVariable("fileId") String fileId);
     }
 
-    @FeignClient(name = "product-service",path = "/api/table")
+    @FeignClient(name = "product-service",path = "/api/table",fallback = TableServiceClientFallback.class)
     public interface TableServiceClient {
         @PostMapping
          Result<?> save(@RequestBody Table table);
@@ -246,7 +247,7 @@ public class ProductClient {
          Result<?> upload(@PathVariable("fileId") String fileId);
     }
 
-    @FeignClient(name = "product-service",path = "/api/user")
+    @FeignClient(name = "product-service",path = "/api/user",fallback = UserServiceClientFallback.class)
     public interface UserServiceClient {
         @PostMapping
          Result<?> save(@RequestBody User user);
