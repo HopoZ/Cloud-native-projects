@@ -1,0 +1,28 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: product-client
+          uri: lb://product-client
+          filters:
+            - StripPrefix=1
+          predicates:
+            - Path=/product/**
+
+eureka:
+  instance:
+    prefer-ip-address: false
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8888/eureka
