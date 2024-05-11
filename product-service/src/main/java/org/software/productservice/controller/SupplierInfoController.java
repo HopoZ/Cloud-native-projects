@@ -70,12 +70,12 @@ public class SupplierInfoController {
 
 // todo
     @GetMapping
-    public Result<List<User>> findAll() {
+    public Result<?> findAll() {
         return Result.success(userService.list(Wrappers.<User>lambdaQuery().ne(User::getUsername, "admin")));
     }
 // todo
     @GetMapping("/page")
-    public Result<IPage<User>> findPage(@RequestParam(required = false, defaultValue = "") String name,
+    public Result<?> findPage(@RequestParam(required = false, defaultValue = "") String name,
                                         @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                         @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         LambdaQueryWrapper<User> wrapper = Wrappers.<User>lambdaQuery().ne(User::getUsername, "admin").eq(User::getRole,"[7]").like(User::getUsername, name).orderByDesc(User::getId);

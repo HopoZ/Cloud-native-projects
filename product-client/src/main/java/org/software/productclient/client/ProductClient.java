@@ -17,21 +17,21 @@ public class ProductClient {
     @FeignClient(name = "product-service",path ="/api/goods",fallback = GoodsServiceClientFallback.class)
     public interface GoodsServiceClient {
         @PostMapping
-        Result<Boolean> save(@RequestBody Goods goods);
+        Result<?> save(@RequestBody Goods goods);
 
         @PutMapping
-         Result<Boolean> update(@RequestBody Goods goods);
+         Result<?> update(@RequestBody Goods goods);
 
         @DeleteMapping("/{id}")
-         Result delete(@PathVariable("id") Long id);
+         Result<?> delete(@PathVariable("id") Long id);
 
         @GetMapping("/{id}")
-         Result<Goods> findById(@PathVariable("id") Long id);
+         Result<?> findById(@PathVariable("id") Long id);
 
         @GetMapping
-         Result<List<Goods>> findAll();
+         Result<?> findAll();
         @GetMapping("/page")
-         Result<IPage<Goods>> findPage(@RequestParam(name = "name",required = false, defaultValue = "") String name,
+         Result<?> findPage(@RequestParam(name = "name",required = false, defaultValue = "") String name,
                 @RequestParam(name = "pageNum",required = false, defaultValue = "1") Integer pageNum,
                 @RequestParam(name = "pageSize",required = false, defaultValue = "10") Integer pageSize);
 
@@ -39,7 +39,7 @@ public class ProductClient {
          void export(HttpServletResponse response) throws IOException;
 
         @GetMapping("/upload/{fileId}")
-         Result upload(@PathVariable("fileId") String fileId);
+         Result<?> upload(@PathVariable("fileId") String fileId);
     }
 
     @FeignClient(name = "product-service",path = "/api/orders",fallback = OrdersServiceClientFallback.class)
@@ -83,18 +83,18 @@ public class ProductClient {
         Result<?> delete(@PathVariable("id") Long id);
 
         @GetMapping("/{id}")
-        Result<Permission> findById(@PathVariable("id") Long id);
+        Result<?> findById(@PathVariable("id") Long id);
 
         @GetMapping
-        Result<List<Permission>> findAll();
+        Result<?> findAll();
 
         @GetMapping("/page")
-        Result<IPage<Permission>> findPage(@RequestParam(name = "name",required = false, defaultValue = "") String name,
+        Result<?> findPage(@RequestParam(name = "name",required = false, defaultValue = "") String name,
                                            @RequestParam(name = "pageNum",required = false, defaultValue = "1") Integer pageNum,
                                            @RequestParam(name = "pageSize",required = false, defaultValue = "10") Integer pageSize);
 
         @PostMapping("/getByRoles")
-        Result<List<Permission>> getByRoles(@RequestBody List<Role> roles);
+        Result<?> getByRoles(@RequestBody List<Role> roles);
     }
 
     @FeignClient(name = "product-service",path ="/api/role",fallback = RoleServiceClientFallback.class)

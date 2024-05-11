@@ -46,33 +46,33 @@ public class OrdersController {
     }
 
     @PostMapping
-    public Result<Boolean> save(@RequestBody Orders orders) {
+    public Result<?> save(@RequestBody Orders orders) {
         return Result.success(ordersService.save(orders));
     }
 
     @PutMapping
-    public Result<Boolean> update(@RequestBody Orders orders) {
+    public Result<?> update(@RequestBody Orders orders) {
         return Result.success(ordersService.updateById(orders));
     }
 
     @DeleteMapping("/{id}")
-    public Result delete(@PathVariable Long id) {
+    public Result<?> delete(@PathVariable Long id) {
         ordersService.removeById(id);
         return Result.success();
     }
 
     @GetMapping("/{id}")
-    public Result<Orders> findById(@PathVariable Long id) {
+    public Result<?> findById(@PathVariable Long id) {
         return Result.success(ordersService.getById(id));
     }
 
     @GetMapping
-    public Result<List<Orders>> findAll() {
+    public Result<?> findAll() {
         return Result.success(ordersService.list());
     }
 
     @GetMapping("/page")
-    public Result<IPage<Orders>> findPage(@RequestParam(required = false, defaultValue = "") String name,
+    public Result<?> findPage(@RequestParam(required = false, defaultValue = "") String name,
                                   @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                   @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         LambdaQueryWrapper<Orders> query = Wrappers.<Orders>lambdaQuery().orderByDesc(Orders::getId);
@@ -115,7 +115,7 @@ public class OrdersController {
     }
 
     @GetMapping("/upload/{fileId}")
-    public Result upload(@PathVariable String fileId) {
+    public Result<?> upload(@PathVariable String fileId) {
         String basePath = System.getProperty("user.dir") + "/src/main/resources/static/file/";
         List<String> fileNames = FileUtil.listFileNames(basePath);
         String file = fileNames.stream().filter(name -> name.contains(fileId)).findAny().orElse("");

@@ -17,37 +17,37 @@ public class GoodsServiceClientFallback implements ProductClient.GoodsServiceCli
 
 
     @Override
-    public Result<Boolean> save(Goods goods) {
+    public Result<?> save(Goods goods) {
         log.info("save callback");
         return null;
     }
 
     @Override
-    public Result<Boolean> update(Goods goods) {
+    public Result<?> update(Goods goods) {
         log.info("update callback");
         return null;
     }
 
     @Override
-    public Result delete(Long id) {
+    public Result<?> delete(Long id) {
         log.info("delete callback");
         return null;
     }
 
     @Override
-    public Result<Goods> findById(Long id) {
+    public Result<?> findById(Long id) {
         log.info("findById callback");
         return null;
     }
 
     @Override
-    public Result<List<Goods>> findAll() {
+    public Result<?> findAll() {
         log.info("findAll callback");
         return null;
     }
 
     @Override
-    public Result<IPage<Goods>> findPage(String name, Integer pageNum, Integer pageSize) {
+    public Result<?> findPage(String name, Integer pageNum, Integer pageSize) {
         log.info("findPage callback");
         return null;
     }
@@ -58,7 +58,7 @@ public class GoodsServiceClientFallback implements ProductClient.GoodsServiceCli
     }
 
     @Override
-    public Result upload(String fileId) {
+    public Result<?> upload(String fileId) {
         log.info("upload callback");
         return null;
     }

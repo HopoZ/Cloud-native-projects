@@ -35,39 +35,39 @@ public class GoodsClientController {
     private final ProductClient.GoodsServiceClient goodsServiceClient; // ProductClient 接口的实例
     
     @PostMapping
-    public Result<Boolean> save(@RequestBody Goods goods){
-        Result<Boolean> result = goodsServiceClient.save(goods);
+    public Result<?> save(@RequestBody Goods goods){
+        Result<?> result = goodsServiceClient.save(goods);
         return result;
     }
 
     @PutMapping
-    public Result<Boolean> update(@RequestBody Goods goods){
-        Result<Boolean> result = goodsServiceClient.update(goods);
+    public Result<?> update(@RequestBody Goods goods){
+        Result<?> result = goodsServiceClient.update(goods);
         return result;
     }
 
     @DeleteMapping("/{id}")
-    public Result delete(@PathVariable Long id){
-        Result result = goodsServiceClient.delete(id);
+    public Result<?> delete(@PathVariable Long id){
+        Result<?> result = goodsServiceClient.delete(id);
         return result;
     }
 
     @GetMapping("/{id}")
-    public Result<Goods> findById(@PathVariable Long id){
-        Result<Goods> result = goodsServiceClient.findById(id);
+    public Result<?> findById(@PathVariable Long id){
+        Result<?> result = goodsServiceClient.findById(id);
         return result;
     }
 
     @GetMapping
-    public Result<List<Goods>> findAll(){
-        Result<List<Goods>> result = goodsServiceClient.findAll();
+    public Result<?> findAll(){
+        Result<?> result = goodsServiceClient.findAll();
         return result;
     }
     @GetMapping("/page")
-    public Result<IPage<Goods>> findPage(@RequestParam(required = false, defaultValue = "") String name,
+    public Result<?> findPage(@RequestParam(required = false, defaultValue = "") String name,
                                          @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                          @RequestParam(required = false, defaultValue = "10") Integer pageSize){
-        Result<IPage<Goods>> result = goodsServiceClient.findPage(name,pageNum,pageSize);
+        Result<?> result = goodsServiceClient.findPage(name,pageNum,pageSize);
         return result;
     }
 
@@ -77,7 +77,7 @@ public class GoodsClientController {
     }
 
     @GetMapping("/upload/{fileId}")
-    public Result upload(@PathVariable String fileId){
+    public Result<?> upload(@PathVariable String fileId){
         Result<?> result = goodsServiceClient.upload(fileId);
         return result;
     }

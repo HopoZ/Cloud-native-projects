@@ -37,24 +37,24 @@ public class PermissionController {
     }
 
     @GetMapping("/{id}")
-    public Result<Permission> findById(@PathVariable Long id) {
+    public Result<?> findById(@PathVariable Long id) {
         return Result.success(permissionService.getById(id));
     }
 
     @GetMapping
-    public Result<List<Permission>> findAll() {
+    public Result<?> findAll() {
         return Result.success(permissionService.list());
     }
 
     @GetMapping("/page")
-    public Result<IPage<Permission>> findPage(@RequestParam(required = false, defaultValue = "") String name,
+    public Result<?> findPage(@RequestParam(required = false, defaultValue = "") String name,
                                               @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                               @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         return Result.success(permissionService.page(new Page<>(pageNum, pageSize), Wrappers.<Permission>lambdaQuery().like(Permission::getName, name)));
     }
 
     @PostMapping("/getByRoles")
-    public Result<List<Permission>> getByRoles(@RequestBody List<Role> roles) {
+    public Result<?> getByRoles(@RequestBody List<Role> roles) {
         return Result.success(permissionService.getByRoles(roles));
     }
 

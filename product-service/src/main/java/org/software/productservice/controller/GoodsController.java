@@ -49,33 +49,33 @@ public class GoodsController {
     }
 
     @PostMapping
-    public Result<Boolean> save(@RequestBody Goods goods) {
+    public Result<?> save(@RequestBody Goods goods) {
         return Result.success(goodsService.save(goods));
     }
 
     @PutMapping
-    public Result<Boolean> update(@RequestBody Goods goods) {
+    public Result<?> update(@RequestBody Goods goods) {
         return Result.success(goodsService.updateById(goods));
     }
 
     @DeleteMapping("/{id}")
-    public Result delete(@PathVariable Long id) {
+    public Result<?> delete(@PathVariable Long id) {
         goodsService.removeById(id);
         return Result.success();
     }
 
     @GetMapping("/{id}")
-    public Result<Goods> findById(@PathVariable Long id) {
+    public Result<?> findById(@PathVariable Long id) {
         return Result.success(goodsService.getById(id));
     }
 
     @GetMapping
-    public Result<List<Goods>> findAll() {
+    public Result<?> findAll() {
         return Result.success(goodsService.list());
     }
 
     @GetMapping("/page")
-    public Result<IPage<Goods>> findPage(@RequestParam(required = false, defaultValue = "") String name,
+    public Result<?> findPage(@RequestParam(required = false, defaultValue = "") String name,
                                   @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                   @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         LambdaQueryWrapper<Goods> query = Wrappers.<Goods>lambdaQuery().orderByDesc(Goods::getId);
@@ -117,7 +117,7 @@ public class GoodsController {
     }
 
     @GetMapping("/upload/{fileId}")
-    public Result upload(@PathVariable String fileId) {
+    public Result<?> upload(@PathVariable String fileId) {
         String basePath = System.getProperty("user.dir") + "/src/main/resources/static/file/";
         List<String> fileNames = FileUtil.listFileNames(basePath);
         String file = fileNames.stream().filter(name -> name.contains(fileId)).findAny().orElse("");

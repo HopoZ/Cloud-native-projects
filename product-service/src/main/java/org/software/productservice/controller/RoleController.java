@@ -38,17 +38,17 @@ public class RoleController {
     }
 
     @GetMapping("/{id}")
-    public Result<Role> findById(@PathVariable Long id) {
+    public Result<?> findById(@PathVariable Long id) {
         return Result.success(roleService.getById(id));
     }
 
     @GetMapping
-    public Result<List<Role>> findAll() {
+    public Result<?> findAll() {
         return Result.success(roleService.list());
     }
 
     @GetMapping("/page")
-    public Result<IPage<Role>> findPage(@RequestParam(required = false, defaultValue = "") String name,
+    public Result<?> findPage(@RequestParam(required = false, defaultValue = "") String name,
                                         @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                         @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         return Result.success(roleService.page(new Page<>(pageNum, pageSize), Wrappers.<Role>lambdaQuery().like(Role::getName, name)));

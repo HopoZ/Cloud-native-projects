@@ -34,25 +34,25 @@ public class PermissionServiceClientFallback implements ProductClient.Permission
     }
 
     @Override
-    public Result<Permission> findById(Long id) {
+    public Result<?> findById(Long id) {
         log.info("findById callback");
         return null;
     }
 
     @Override
-    public Result<List<Permission>> findAll() {
+    public Result<?> findAll() {
         log.info("findAll callback");
         return null;
     }
 
     @Override
-    public Result<IPage<Permission>> findPage(String name, Integer pageNum, Integer pageSize) {
+    public Result<?> findPage(String name, Integer pageNum, Integer pageSize) {
         log.info("findPage callback");
         return null;
     }
 
     @Override
-    public Result<List<Permission>> getByRoles(List<Role> roles) {
+    public Result<?> getByRoles(List<Role> roles) {
         return null;
     }
 
