@@ -16,21 +16,6 @@ public class ProductClient {
      */
     @FeignClient(name = "product-service",path ="/api/goods",fallback = GoodsServiceClientFallback.class)
     public interface GoodsServiceClient {
-//        /**
-//         * 根据商品 id 获取商品对象
-//         * @param productId
-//         * @return
-//         */
-//        @GetMapping("/findByProductId/{productId}")
-//        Product findByProductId(@RequestParam(value = "productId") Long productId);
-//        /**
-//         * 获取所有商品集合
-//         * @return
-//         */
-//        @GetMapping("queryAllProduct")
-//        List<Product> queryAllProduct();
-//        @GetMapping("queryAllt")
-//        List<Product> queryAl();
         @PostMapping
         Result<Boolean> save(@RequestBody Goods goods);
 
@@ -55,34 +40,6 @@ public class ProductClient {
 
         @GetMapping("/upload/{fileId}")
          Result upload(@PathVariable("fileId") String fileId);
-    }
-
-    @FeignClient(name = "product-service",path = "/api/ordersSearch",fallback = OrdersSearchServiceClientFallback.class)
-    public interface OrdersSearchServiceClient {
-        @PostMapping
-         Result<?> save(@RequestBody OrdersSearch ordersSearch);
-
-        @PutMapping
-         Result<?> update(@RequestBody OrdersSearch ordersSearch);
-
-        @DeleteMapping("/{id}")
-         Result<?> delete(@PathVariable("id") Long id);
-
-        @GetMapping("/{id}")
-         Result<?> findById(@PathVariable("id") Long id);
-
-        @GetMapping
-         Result<?> findAll();
-        @GetMapping("/page")
-         Result<?> findPage(@RequestParam(name = "name",required = false, defaultValue = "") String name,
-                            @RequestParam(name = "pageNum",required = false, defaultValue = "1") Integer pageNum,
-                            @RequestParam(name = "pageSize",required = false, defaultValue = "10") Integer pageSize);
-
-        @GetMapping("/export")
-         void export(HttpServletResponse response) throws IOException;
-
-        @GetMapping("/upload/{fileId}")
-         Result<?> upload(@PathVariable("fileId") String fileId);
     }
 
     @FeignClient(name = "product-service",path = "/api/orders",fallback = OrdersServiceClientFallback.class)
@@ -161,90 +118,6 @@ public class ProductClient {
                             @RequestParam(name = "pageNum",required = false, defaultValue = "1") Integer pageNum,
                             @RequestParam(name = "pageSize",required = false, defaultValue = "10") Integer pageSize);
 
-    }
-
-    @FeignClient(name = "product-service",path = "/api/supplierInfo",fallback = SupplierInfoServiceClientFallback.class)
-    public interface SupplierInfoServiceClient {
-        @PostMapping
-         Result<?> save(@RequestBody SupplierInfo supplierInfo);
-
-        @PutMapping
-         Result<?> update(@RequestBody SupplierInfo supplierInfo);
-
-        @DeleteMapping("/{id}")
-         Result<?> delete(@PathVariable("id") Long id);
-
-        @GetMapping("/{id}")
-         Result<?> findById(@PathVariable("id") Long id);
-
-        @GetMapping
-         Result<?> findAll();
-        @GetMapping("/page")
-         Result<?> findPage(@RequestParam(name = "name",required = false, defaultValue = "") String name,
-                            @RequestParam(name = "pageNum",required = false, defaultValue = "1") Integer pageNum,
-                            @RequestParam(name = "pageSize",required = false, defaultValue = "10") Integer pageSize);
-
-        @GetMapping("/export")
-         void export(HttpServletResponse response) throws IOException;
-
-        @GetMapping("/upload/{fileId}")
-         Result<?> upload(@PathVariable("fileId") String fileId);
-    }
-
-    @FeignClient(name = "product-service",path = "/api/supplier",fallback = SupplierServiceClientFallback.class)
-    public interface SupplierServiceClient {
-        @PostMapping
-         Result<?> save(@RequestBody Supplier supplier);
-
-        @PutMapping
-         Result<?> update(@RequestBody Supplier supplier);
-
-        @DeleteMapping("/{id}")
-         Result<?> delete(@PathVariable("id") Long id);
-
-        @GetMapping("/{id}")
-         Result<?> findById(@PathVariable("id") Long id);
-
-        @GetMapping
-         Result<?> findAll();
-        @GetMapping("/page")
-         Result<?> findPage(@RequestParam(name = "name",required = false, defaultValue = "") String name,
-                            @RequestParam(name = "pageNum",required = false, defaultValue = "1") Integer pageNum,
-                            @RequestParam(name = "pageSize",required = false, defaultValue = "10") Integer pageSize);
-
-        @GetMapping("/export")
-         void export(HttpServletResponse response) throws IOException;
-
-        @GetMapping("/upload/{fileId}")
-         Result<?> upload(@PathVariable("fileId") String fileId);
-    }
-
-    @FeignClient(name = "product-service",path = "/api/table",fallback = TableServiceClientFallback.class)
-    public interface TableServiceClient {
-        @PostMapping
-         Result<?> save(@RequestBody Table table);
-
-        @PutMapping
-         Result<?> update(@RequestBody Table table);
-
-        @DeleteMapping("/{id}")
-         Result<?> delete(@PathVariable("id") Long id);
-
-        @GetMapping("/{id}")
-         Result<?> findById(@PathVariable("id") Long id);
-
-        @GetMapping
-         Result<?> findAll();
-        @GetMapping("/page")
-         Result<?> findPage(@RequestParam(name = "name",required = false, defaultValue = "") String name,
-                            @RequestParam(name = "pageNum",required = false, defaultValue = "1") Integer pageNum,
-                            @RequestParam(name = "pageSize",required = false, defaultValue = "10") Integer pageSize);
-
-        @GetMapping("/export")
-         void export(HttpServletResponse response) throws IOException;
-
-        @GetMapping("/upload/{fileId}")
-         Result<?> upload(@PathVariable("fileId") String fileId);
     }
 
     @FeignClient(name = "product-service",path = "/api/user",fallback = UserServiceClientFallback.class)

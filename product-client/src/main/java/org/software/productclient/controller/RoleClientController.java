@@ -3,15 +3,10 @@ package org.software.productclient.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.software.productclient.client.ProductClient;
-import org.software.productclient.entity.OrdersSearch;
 import org.software.productclient.entity.Role;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.software.productclient.common.Result;
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @AllArgsConstructor // 使用 Lombok 自动生成带有所有参数的构造函数
 @RestController // 标识该类是一个 REST 控制器

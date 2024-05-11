@@ -4,14 +4,11 @@ package org.software.productclient.fallBack;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.software.productclient.client.ProductClient;
-import org.software.productclient.entity.OrdersSearch;
 import org.software.productclient.entity.Permission;
 import org.software.productclient.entity.Role;
 import org.springframework.stereotype.Component;
 import org.software.productclient.common.Result;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 @Slf4j

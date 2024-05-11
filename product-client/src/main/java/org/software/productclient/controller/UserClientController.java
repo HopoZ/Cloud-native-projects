@@ -3,10 +3,7 @@ package org.software.productclient.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.software.productclient.client.ProductClient;
-import org.software.productclient.entity.OrdersSearch;
 import org.software.productclient.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.software.productclient.common.Result;
 

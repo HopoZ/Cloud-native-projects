@@ -2,7 +2,6 @@ package org.software.productclient.fallBack;
 
 import lombok.extern.slf4j.Slf4j;
 import org.software.productclient.client.ProductClient;
-import org.software.productclient.entity.OrdersSearch;
 import org.software.productclient.entity.User;
 import org.springframework.stereotype.Component;
 import org.software.productclient.common.Result;
