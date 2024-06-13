@@ -1,0 +1,4 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service.stockmgr.svc.cluster.local:8888/eureka

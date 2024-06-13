@@ -1,23 +1,17 @@
 server:
-  port: 8010  # 服务器端口配置
+  port: 8010
 
 spring:
   application:
-    name: product-service  # Spring 应用程序名称
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/system?characterEncoding=utf-8&allowPublicKeyRetrieval=true&useSSL=false  # 数据库连接 URL
-    username: root # 数据库用户名
-    password: 123456  # 数据库密码
-    driver-class-name: com.mysql.cj.jdbc.Driver  # 数据库驱动类名
-    hikari:
-      maximum-pool-size: 10  # 最大连接池大小
-      minimum-idle: 5  # 最小空闲连接数
+    name: product-service
+  profiles:
+    active: k8s
 
 eureka:
   instance:
-    prefer-ip-address: false  # Eureka 实例是否优先使用 IP 地址，默认为 false
+    prefer-ip-address: true # 如果为 false 可能出错找不到服务的错误
+    lease-renewal-interval-in-seconds: 5 # 续约间隔时间
+    lease-expiration-duration-in-seconds: 15 # 续约到期时间
   client:
-    register-with-eureka: true  # 是否将当前应用注册到 Eureka 服务器，默认为 true
-    fetch-registry: true  # 是否从 Eureka 服务器获取注册信息，默认为 true
-    service-url:
-      defaultZone: http://localhost:8888/eureka  # Eureka 服务器的地址，用于服务注册与发现
+    register-with-eureka: true
+    fetch-registry: true

@@ -1,0 +1,10 @@
+spring:
+  datasource:  # 数据源配置
+    url: jdbc:mysql://mysql.default:3306/system?characterEncoding=utf-8&allowPublicKeyRetrieval=true&useSSL=false
+    username: root  # 数据库用户名
+    password: root  # 数据库密码
+    driver-class-name: com.mysql.jdbc.Driver  # JDBC 驱动程序类名，用于 MySQL
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service.stockmgr.svc.cluster.local:8888/eureka

@@ -3,12 +3,16 @@ server:
 
 spring:
   application:
-    name: @artifactId@
+    name: "@artifactId@"
+  profiles:
+    active: k8s
   cloud:
     gateway:
       discovery:
         locator:
+          # 开启以服务 id 去注册中心上获取转发地址
           enabled: true
+          ## 小写 serviceId
           lower-case-service-id: true
       routes:
         - id: product-client
@@ -20,9 +24,9 @@ spring:
 
 eureka:
   instance:
-    prefer-ip-address: false
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5 # 续约间隔时间
+    lease-expiration-duration-in-seconds: 15 # 续约到期时间
   client:
     register-with-eureka: true
     fetch-registry: true
-    service-url:
-      defaultZone: http://127.0.0.1:8888/eureka
