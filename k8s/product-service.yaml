@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-service
+  namespace: stockmgr  # 在 stockmgr 命名空间中创建部署
+spec:
+  replicas: 2  # 希望运行 2 个副本的 Deployment
+  selector:
+    matchLabels:
+      project: stockmgr  # 选择具有相同标签的 Pod
+      app: product-service
+  template:
+    metadata:
+      labels:
+        project: stockmgr
+        app: product-service  # 在 Pod 上设置相同的标签，以便选择器可以选择它们
+    spec:
+      imagePullSecrets:
+        - name: registry-pull-secret  # 用于从私有镜像仓库拉取镜像的密钥
+      containers:
+        - name: product-service
+          image: registry.cn-hangzhou.aliyuncs.com/z7stock/product-service  # 使用的容器镜像
+          imagePullPolicy: IfNotPresent  # 如果本地没有该镜像，才从镜像仓库拉取
+          ports:
+            - protocol: TCP  # 指定端口协议为 TCP
+              containerPort: 8010  # 容器监听的端口号
+          env:  # 容器环境变量
+            - name: JAVA_OPTS
+              value: "-Xmx1g"  # Java 运行时参数
+          resources:  # 容器资源限制和请求
+            requests:  # 容器资源请求
+              cpu: 0.5  # 请求 0.5 个 CPU
+              memory: 256Mi  # 请求 256 MiB 内存
+            limits:  # 容器资源限制
+              cpu: 1  # 限制 1 个 CPU
+              memory: 1Gi  # 限制 1 GiB 内存
+          readinessProbe:  # 就绪探针，用于确定何时将 Pod 标记为“就绪”
+            tcpSocket:  # 使用 TCP 套接字检查就绪状态
+              port: 8010  # 监听的端口号
+            initialDelaySeconds: 60  # 在容器启动后等待 60 秒后开始探测
+            periodSeconds: 10  # 每隔 10 秒进行一次探测
+          livenessProbe:  # 存活探针，用于确定何时重启 Pod
+            tcpSocket:  # 使用 TCP 套接字检查存活状态
+              port: 8010  # 监听的端口号
+            initialDelaySeconds: 60  # 在容器启动后等待 60 秒后开始探测
+            periodSeconds: 10  # 每隔 10 秒进行一次探测
+

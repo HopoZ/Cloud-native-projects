@@ -1,0 +1,39 @@
+kind: List
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: gateway-service
+    namespace: stockmgr
+  spec:
+    type: NodePort
+    selector:
+      app: gateway-service
+    ports:
+    - name: http
+      port: 9999
+      targetPort: 9999
+      nodePort: 30099
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: gateway-service
+    namespace: stockmgr
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: gateway-service
+    template:
+      metadata:
+        labels:
+          app: gateway-service
+      spec:
+        containers:
+        - name: gateway-service
+          imagePullPolicy: IfNotPresent
+          image: registry.cn-hangzhou.aliyuncs.com/z7stock/gateway-service:v1
+          ports:
+          - containerPort: 9999
+

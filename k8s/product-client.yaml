@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-client
+  namespace: stockmgr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: stockmgr
+      app: product-client
+  template:
+    metadata:
+      labels:
+        project: stockmgr
+        app: product-client
+    spec:
+      imagePullSecrets:
+      - name: registry-pull-secret
+      containers:
+      - name: product-client
+        image: registry.cn-hangzhou.aliyuncs.com/z7stock/product-client:v1
+        imagePullPolicy: Always
+        ports:
+        - protocol: TCP
+          containerPort: 8018
+        env:
+        - name: JAVA_OPTS
+          value: "-Xmx1g"
+        resources:
+          requests:
+            cpu: "0.5"
+            memory: 256Mi
+          limits:
+            cpu: "1"
+            memory: 1Gi
+        readinessProbe:
+          tcpSocket:
+            port: 8018
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 8018
+          initialDelaySeconds: 60
+          periodSeconds: 10
+
